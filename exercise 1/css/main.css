@@ -1,0 +1,53 @@
+body {
+	overflow-x: hidden;
+}
+
+
+.hero {
+	position: absolute;
+	top: 35%;
+	right: 15%;
+}
+
+.desktop-only img, .mobile-only img {
+	filter: brightness(50%);
+}
+
+h1, h2 {
+	display: block;
+	color:#fff;
+	vertical-align: middle;
+}
+
+h1 {
+	font-weight: bold;
+	font-size: 5vw;
+}
+
+h2 {
+	font-size: 3vw;
+}
+
+.mobile-only {
+	display: none;
+	}
+
+@media only screen and (max-width: 600px) {
+  .desktop-only {
+    display: none;
+  }
+	
+  .mobile-only {
+		display: block;
+	}
+	
+  .mobile-only .hero {
+		top: 35%;
+   		right: 10%;
+    	width: 80%;
+	}
+  .mobile-only h1 {
+		font-size: 7vw;
+	}
+}
+

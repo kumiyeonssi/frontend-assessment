@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        button.accordion {
+            background-color: #fff;
+            cursor: pointer;
+            padding: 0px 0 8px 0;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 18px;
+            transition: 0.4s;
+            border-bottom: 1px solid #ccc;
+        }
+        button.accordion.active,
+        button.accordion: hover {
+            color: #f06100
+        }
+        button.accordion: before {
+            content: '\02795';
+            font-size: 9px;
+            float: left;
+            margin-left: 0px;
+            margin-right: 10px;
+            margin-top: 7px;
+        }
+        button.accordion.active: before {
+            content: "\2796";
+        }
+        div.panel {
+            background-color: white;
+            max-height: 0;
+            padding-left: 15px;
+            overflow: hidden;
+            padding-top: 0px;
+            border-bottom: 4px solid #ccc;
+            transition: 0.6s ease-in-out;
+            opacity: 0;
+            margin-bottom: 8px;
+        }
+        .panel-icon {
+            margin-right: 10px;
+        }
+        .panel h5 {
+            font-size: 15px;
+            line-height: 23px;
+            margin-top: 5px;
+            margin-bottom: 0px;
+            display: inline-block;
+            color: #2d2d2d
+        }
+        .panel p {
+            font-size: 15px;
+            line-height: 23px;
+            padding: 15px 30px 20px 0;
+            color: #2d2d2d
+        }
+        div.panel.show {
+            opacity: 1;
+            max-height: 500px;
+        }
+        /* Style the tab */
+        .tab {
+            overflow: hidden;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+        }
+        /* Style the buttons inside the tab */
+        .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            font-size: 17px;
+        }
+        /* Change background color of buttons on hover */
+        .tab button: hover {
+            background-color: #ddd;
+        }
+        /* Create an active/current tablink class */
+        .tab button.active {
+            background-color: #ccc;
+        }
+        /* Style the tab content */
+        .tabcontent {
+            display: none;
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            border-top: none;
+        }
+        .mobile {
+            display: none;
+        }
+        @media only screen and (max-width: 600px) {
+            .desktop {
+                display: none;
+            }
+            .mobile {
+                display: block;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+
+    </div>
+    <div class="desktop">
+        <div class="tab">
+            <button class="tablinks" onclick="openSection(event, 'Section1')" id="defaultOpen">Section 1</button>
+            <button class="tablinks" onclick="openSection(event, 'Section2')">Section 2</button>
+            <button class="tablinks" onclick="openSection(event, 'Section3')">Section 3</button>
+            <button class="tablinks" onclick="openSection(event, 'Section4')">Section 4</button>
+        </div>
+
+
+        <div id="Section1" class="tabcontent"></div>
+		<div id="Section2" class="tabcontent"></div>
+		<div id="Section3" class="tabcontent"></div>
+        <div id="Section4" class="tabcontent"> </div>
+    </div>
+    <div class="mobile">
+        <button class="accordion">Section 1</button>
+        <div class="panel" id="mob-section1">
+        </div>
+
+        <button class="accordion">Section 2</button>
+        <div id="mob-section2" class="panel">
+        </div>
+
+        <button class="accordion">Section 3</button>
+        <div id="mob-section3" class="panel">
+        </div>
+
+        <button class="accordion">Section 4</button>
+        <div id="mob-section4" class="panel">
+        </div>
+
+    </div>
+    <script>
+        function openSection(evt, sectionName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(sectionName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        document.getElementById("defaultOpen").click();
+
+        var acc = document.getElementsByClassName("accordion");
+        var panel = document.getElementsByClassName("panel");
+
+        for (var i = 0; i < acc.length; i++) {
+            acc[i].onclick = function() {
+                var setClasses = !this.classList.contains('active');
+                setClass(acc, 'active', 'remove');
+                setClass(panel, 'show', 'remove');
+
+                if (setClasses) {
+                    this.classList.toggle("active");
+                    this.nextElementSibling.classList.toggle("show");
+                }
+            }
+        }
+
+        function setClass(els, className, fnName) {
+            for (var i = 0; i < els.length; i++) {
+                els[i].classList[fnName](className);
+            }
+        }
+
+        var i, x = "";
+        var data2 = [{
+            "title": "Section 1",
+            "content": "<p>Maecenas nec semper ante, pellentesque posuere lorem. Nullam ipsum massa, consequat eget urna ut, pulvinar dignissim lorem. Nulla facilisi. Nam mattis eleifend metus. Fusce at commodo lorem. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Phasellus pellentesque elit sem, vel blandit posuere.</p>"
+        }, {
+            "title": "Section 2",
+            "content": "<p>Mauris a orci sodales, scelerisque velit vitae, gravida nisl. Ut non laoreet eros, vel laoreet nisi. Praesent sed dolor dui. Proin non fringilla quam. Aliquam erat volutpat. Vestibulum vel arcu semper, lobortis turpis ac, ultricies nisi. Praesent id.</p>"
+        }, {
+            "title": "Section 3",
+            "content": "<p>Sed elementum sapien ut sapien imperdiet, eu venenatis enim rhoncus. Praesent euismod tincidunt rhoncus. Duis cras amet:</p><ul><li>List item one</li><li>List item two</li><li>List item three</li></ul>"
+        }, {
+            "title": "Section 4",
+            "content": "<p>Cras dictum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean lacinia mauris vel est.</p><p>Suspendisse eu nisl. Nullam ut libero. Integer dignissim consequat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>"
+        }]
+
+        for (var i = 0; i < data2.length; i++) {
+            var obj = data2[i];
+        }
+        document.getElementById("Section1").innerHTML = data2[0].title + "<br />" + data2[0].content;
+        document.getElementById("Section2").innerHTML = data2[1].title + "<br />" + data2[1].content;
+        document.getElementById("Section3").innerHTML = data2[2].title + "<br />" + data2[2].content;
+        document.getElementById("Section4").innerHTML = data2[3].title + "<br />" + data2[3].content;
+        document.getElementById("mob-section1").innerHTML = data2[0].title + "<br />" + data2[0].content;
+        document.getElementById("mob-section2").innerHTML = data2[1].title + "<br />" + data2[1].content;
+        document.getElementById("mob-section3").innerHTML = data2[2].title + "<br />" + data2[2].content;
+        document.getElementById("mob-section4").innerHTML = data2[3].title + "<br />" + data2[3].content;
+    </script>
+
+</body>
+
+</html>
